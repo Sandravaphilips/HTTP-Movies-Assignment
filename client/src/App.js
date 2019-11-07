@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
+import { connect } from "react-redux";
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
@@ -25,4 +26,11 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    movie: state.movie
+  }
+}
+
+export default connect(mapStateToProps, {})(App)

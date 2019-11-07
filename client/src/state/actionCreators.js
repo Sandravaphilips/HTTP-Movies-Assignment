@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import axios from "axios";
 
 export const renderMovies = (movies) => {
-    return {type: types.RENDER_MOVIE, payload: movies};
+    return {type: types.RENDER_MOVIES, payload: movies};
 };
 
 export const fetchMovies = () => dispatch => {
