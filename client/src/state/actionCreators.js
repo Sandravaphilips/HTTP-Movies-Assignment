@@ -15,6 +15,12 @@ export const updateMovie = (movie) => {
     return {type: types.UPDATE_MOVIE, payload: movie}
 };
 
+export const putMovie = (id, movie) => dispatch => {
+    axios.put(`http://localhost:5000/api/movies/${id}`, movie)
+    .then(res => dispatch( updateMovie(res.data)))
+    .catch(err => console.log(err))
+}
+
 export const deleteMovie = id => {
     return {type: types.DELETE_MOVIE, payload: id}
 };
@@ -31,4 +37,14 @@ export const renderMovie = (id) => dispatch => {
     axios.get(`http://localhost:5000/api/movies/${id}`)
     .then(response => dispatch(fetchMovie(response.data)))
     .catch(err => console.log(err))
+}
+
+export const onUpdateMovie = (movie) => {
+    return {type: types.ON_UPDATE_MOVIE, payload: movie}
+}
+
+export const onInputChange = e => {
+    return {
+        type: types.ON_INPUT_CHANGE, payload: e
+    }
 }

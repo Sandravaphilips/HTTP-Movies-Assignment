@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import { connect } from "react-redux";
 import * as actionCreators from "../state/actionCreators";
@@ -20,21 +20,24 @@ export class Movie extends React.Component {
 
   saveMovie = () => {
     const addToSavedList = this.props.addToSavedList;
-    addToSavedList(this.props.movie);
+    addToSavedList(this.props.moviesState.movie);
   };
   
   render() {
     
-    if (!this.props.movie) {
+    if (!this.props.moviesState.movie) {
       return <div>Loading movie information...</div>;
     }
     
     return (
       <div className="save-wrapper">
-        <MovieCard movie={this.props.movie} />
+        <MovieCard movie={this.props.moviesState.movie} />
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <Link to={`/update-movie/${this.props.moviesState.movie.id}`}>
+          <button onClick={()=> this.props.onUpdateMovie(this.props.moviesState.movie)} >Edit</button>
+        </Link>
       </div>
     );
   }
@@ -42,8 +45,8 @@ export class Movie extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies,
-    movie: state.movie
+    moviesState: state.moviesState,
+    formValues: state.formValues
   }
 }
 

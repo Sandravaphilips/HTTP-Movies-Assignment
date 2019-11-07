@@ -12,9 +12,10 @@ export class MovieList extends Component {
   }
 
   render() {
+    debugger
     return (
       <div className="movie-list">
-        {this.props.movies.map(movie => (
+        {this.props.moviesState.movies.map(movie => (
           <MovieDetails key={movie.id} movie={movie} />
         ))}
       </div>
@@ -32,8 +33,8 @@ function MovieDetails({ movie }) {
 
 const mapStateToProps = state => {
   return {
-    movies: state.movies,
-    movie: state.movie
+    moviesState: state.moviesState,
+    formValues: state.formValues
   }
 }
 
