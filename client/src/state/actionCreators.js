@@ -22,3 +22,13 @@ export const deleteMovie = id => {
 export const addMovie = movie => {
     return {type: types.ADD_MOVIE, payload: movie}
 };
+
+export const fetchMovie = movie => {
+    return {type: types.FETCH_MOVIE, payload: movie}
+}
+
+export const renderMovie = (id) => dispatch => {
+    axios.get(`http://localhost:5000/api/movies/${id}`)
+    .then(response => dispatch(fetchMovie(response.data)))
+    .catch(err => console.log(err))
+}

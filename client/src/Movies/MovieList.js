@@ -6,11 +6,7 @@ import * as actionCreators from "../state/actionCreators";
 
 
 export class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    debugger
-  }
-
+  
   componentDidMount() {
     this.props.fetchMovies()
   }

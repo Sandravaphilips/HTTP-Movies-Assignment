@@ -2,7 +2,12 @@ import * as types from './actionTypes';
 
 const initialMovieState = {
     movies: [],
-    movie: {}
+    movie: {
+        title: '',
+        director: '',
+        metascore: '',
+        stars: []
+    }
 }
 
 export default function movieReducer(state=initialMovieState, action) {
@@ -16,7 +21,7 @@ export default function movieReducer(state=initialMovieState, action) {
         case types.DELETE_MOVIE: 
             return {...state, movies: state.movies.filter(movie => movie.id !== action.payload)}
         case types.FETCH_MOVIE:
-            return {...state, movie: state.movies.filter(movie => movie.id === action.payload)}
+            return {...state, movie: {...action.payload}}
         default: return state
     }
 }
