@@ -1,3 +1,4 @@
+import * as types from './actionTypes';
 
 const initialMovieState = {
     movies: []
@@ -12,7 +13,7 @@ function movieReducer(state=initialMovieState, action) {
         case types.UPDATE_MOVIE: 
             return {...state, movies: state.movies.filter(movie => movie.id !== action.payload.id).concat(action.payload.movie)}
         case types.DELETE_MOVIE: 
-            return {...state, movies: state.movies.filter(movie => movie.id !== action.payload.id)}
+            return {...state, movies: state.movies.filter(movie => movie.id !== action.payload)}
         default: return state
     }
 }
