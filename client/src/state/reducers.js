@@ -1,0 +1,18 @@
+
+const initialMovieState = {
+    movies: []
+}
+
+function movieReducer(state=initialMovieState, action) {
+    switch(action.type) {
+        case types.ADD_MOVIE: 
+            return {...state, movies: state.movies.concat(action.payload)}
+        case types.RENDER_MOVIES: 
+            return {...state, movies: action.payload}
+        case types.UPDATE_MOVIE: 
+            return {...state, movies: state.movies.filter(movie => movie.id !== action.payload.id).concat(action.payload.movie)}
+        case types.DELETE_MOVIE: 
+            return {...state, movies: state.movies.filter(movie => movie.id !== action.payload.id)}
+        default: return state
+    }
+}
