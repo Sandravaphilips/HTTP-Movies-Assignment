@@ -31,8 +31,10 @@ export const deleteMovie = id => dispatch => {
     .catch(err => console.log(err))
 };
 
-export const addMovie = movie => {
-    return {type: types.ADD_MOVIE, payload: movie}
+export const addMovie = movie => dispatch => {
+    axios.post(`http://localhost:5000/api/movies/`, movie)
+    .then(() => dispatch(fetchMovies()))
+    .catch(err => console.log(err))
 };
 
 export const fetchMovie = movie => {
