@@ -22,6 +22,13 @@ export class Movie extends React.Component {
     const addToSavedList = this.props.addToSavedList;
     addToSavedList(this.props.moviesState.movie);
   };
+
+  deleteMovie = e => {
+    e.preventDefault();
+    const {id} = this.props.match.params;
+    this.props.deleteMovie(id);
+    this.props.history.replace('/');
+  }
   
   render() {
     
@@ -38,6 +45,9 @@ export class Movie extends React.Component {
         <Link to={`/update-movie/${this.props.moviesState.movie.id}`}>
           <button onClick={()=> this.props.onUpdateMovie(this.props.moviesState.movie)} >Edit</button>
         </Link>
+
+        <button onClick={this.deleteMovie} >Delete</button>
+        
       </div>
     );
   }

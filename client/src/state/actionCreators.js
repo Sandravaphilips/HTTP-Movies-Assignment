@@ -17,12 +17,18 @@ export const updateMovie = (movie) => {
 
 export const putMovie = (id, movie) => dispatch => {
     axios.put(`http://localhost:5000/api/movies/${id}`, movie)
-    .then(res => dispatch( updateMovie(res.data)))
+    .then(() => dispatch(fetchMovies))
     .catch(err => console.log(err))
 }
 
-export const deleteMovie = id => {
+export const delMovie = (id) => {
     return {type: types.DELETE_MOVIE, payload: id}
+}
+
+export const deleteMovie = id => dispatch => {
+    axios.delete(`http://localhost:5000/api/movies/${id}`)
+    .then(() => dispatch(fetchMovies()))
+    .catch(err => console.log(err))
 };
 
 export const addMovie = movie => {

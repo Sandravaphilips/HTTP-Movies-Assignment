@@ -12,7 +12,7 @@ export class MovieList extends Component {
   }
 
   render() {
-    debugger
+    // debugger
     return (
       <div className="movie-list">
         {this.props.moviesState.movies.map(movie => (

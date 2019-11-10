@@ -12,25 +12,32 @@ export function UpdateMovie(props) {
     }
     // debugger
     return (
+        <Form onFormSubmit={onFormSubmit} onInputChange={props.onInputChange} formValues={props.formValues} />
+    )
+}
+
+export const Form = props => {
+    const {onFormSubmit, onInputChange, formValues} = props
+    return (
         <form onSubmit={onFormSubmit}>
             <label>
                 Title
-                <input type="text" name="title" onChange={props.onInputChange} value={props.formValues.formValues.title} />
+                <input type="text" name="title" onChange={onInputChange} value={formValues.formValues.title} />
             </label>
 
             <label>
                 Director
-                <input type="text" name="director" onChange={props.onInputChange} value={props.formValues.formValues.director} />
+                <input type="text" name="director" onChange={onInputChange} value={formValues.formValues.director} />
             </label>
 
             <label>
                 Metascore
-                <input type="text" name="metascore" onChange={props.onInputChange} value={props.formValues.formValues.metascore} />
+                <input type="text" name="metascore" onChange={onInputChange} value={formValues.formValues.metascore} />
             </label>
 
             <label>
                 Stars
-                <input type="text" name="stars" onChange={props.onInputChange} value={props.formValues.formValues.stars} />
+                <input type="text" name="stars" onChange={onInputChange} value={formValues.formValues.stars} />
             </label>
 
             
