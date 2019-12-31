@@ -1,26 +1,24 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
-export default class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies: []
-    };
-  }
+import * as actionCreators from "../state/actionCreators";
 
+
+export class MovieList extends Component {
+  
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/api/movies")
-      .then(res => this.setState({ movies: res.data }))
-      .catch(err => console.log(err.response));
+    this.props.fetchMovies()
   }
 
   render() {
+    // debugger
     return (
       <div className="movie-list">
-        {this.state.movies.map(movie => (
+        <Link to="/add-movie" >
+          Add Movie
+        </Link>
+        {this.props.moviesState.movies.map(movie => (
           <MovieDetails key={movie.id} movie={movie} />
         ))}
       </div>
@@ -35,3 +33,12 @@ function MovieDetails({ movie }) {
     </Link>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    moviesState: state.moviesState,
+    formValues: state.formValues
+  }
+}
+
+export default connect(mapStateToProps, actionCreators)(MovieList)

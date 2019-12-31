@@ -1,48 +1,63 @@
 import React from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
-export default class Movie extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movie: null
-    };
-  }
+import { connect } from "react-redux";
+import * as actionCreators from "../state/actionCreators";
 
+export class Movie extends React.Component {
+    
   componentDidMount() {
-    this.fetchMovie(this.props.match.params.id);
+    
+    this.props.renderMovie(this.props.match.params.id);
+    
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.props.match.params.id !== newProps.match.params.id) {
-      this.fetchMovie(newProps.match.params.id);
-    }
-  }
-
-  fetchMovie = id => {
-    axios
-      .get(`http://localhost:5000/api/movies/${id}`)
-      .then(res => this.setState({ movie: res.data }))
-      .catch(err => console.log(err.response));
-  };
+  // componentWillReceiveProps(newProps) {
+  //   if (this.props.match.params.id !== newProps.match.params.id) {
+  //     this.props.renderMovie(newProps.match.params.id);
+  //   }
+  // }
 
   saveMovie = () => {
     const addToSavedList = this.props.addToSavedList;
-    addToSavedList(this.state.movie);
+    addToSavedList(this.props.moviesState.movie);
   };
 
+  deleteMovie = e => {
+    e.preventDefault();
+    const {id} = this.props.match.params;
+    this.props.deleteMovie(id);
+    this.props.history.replace('/');
+  }
+  
   render() {
-    if (!this.state.movie) {
+    
+    if (!this.props.moviesState.movie) {
       return <div>Loading movie information...</div>;
     }
-
+    
     return (
       <div className="save-wrapper">
-        <MovieCard movie={this.state.movie} />
+        <MovieCard movie={this.props.moviesState.movie} />
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <Link to={`/update-movie/${this.props.moviesState.movie.id}`}>
+          <button onClick={()=> this.props.onUpdateMovie(this.props.moviesState.movie)} >Edit</button>
+        </Link>
+
+        <button onClick={this.deleteMovie} >Delete</button>
+        
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    moviesState: state.moviesState,
+    formValues: state.formValues
+  }
+}
+
+export default connect(mapStateToProps, actionCreators)(Movie)
