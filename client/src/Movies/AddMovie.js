@@ -9,7 +9,7 @@ export function AddMovie(props) {
         props.addMovie(props.formValues.formValues)
         props.history.replace('/')
     }
-    debugger
+    
     return (
         <Form onFormSubmit={onFormSubmit} onInputChange={props.onInputChange} formValues={props.formValues} />
     )
@@ -17,8 +17,7 @@ export function AddMovie(props) {
 
 const mapStateToProps = state => {
     return {
-      movies: state.movies,
-      movie: state.movie,
+      moviesState: state.moviesState,
       formValues: state.formValues
     }
 }

@@ -15,6 +15,9 @@ export class MovieList extends Component {
     // debugger
     return (
       <div className="movie-list">
+        <Link to="/add-movie" >
+          Add Movie
+        </Link>
         {this.props.moviesState.movies.map(movie => (
           <MovieDetails key={movie.id} movie={movie} />
         ))}
